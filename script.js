@@ -92,36 +92,63 @@ var upperCasedCharacters = [
 function getPasswordOptions(retry, issue) {
 
   let passwordLength;
+  let availableChars = [];
+  let options = {};
 
   // Get user input
   if (retry) {
     switch (issue) {
-      case invType:
-        passwordLength = prompt('Value is not a number, please try again. What length should your password be? It must be a number between 8 and 128.');
-        break;
-      case invLength:
-        passwordLength = prompt('Value is not within 8 and 128. What length should your password be? It must be a number between 8 and 128.');
-        break;
+      case 'invType':
+        passwordLength = parseInt(prompt('Value is not a number, please try again. What length should your password be? It must be a number between 8 and 128.'))
+        break
+      case 'invLength':
+        passwordLength = parseInt(prompt('Value is not within 8 and 128. What length should your password be? It must be a number between 8 and 128.'))
+        break
+      case 'invChars':
+        passwordLength = parseInt(prompt('You must select at least one character type. What length should your password be? It must be a number between 8 and 128.'))
+        break
     }
   } else {
-    passwordLength = prompt('What length should your password be? It must be a number between 8 and 128.')
+    passwordLength = parseInt(prompt('What length should your password be? It must be a number between 8 and 128.'))
   }
 
-  // User cancelled input
+  // User cancelled input, break out of function
   if (passwordLength === null) {
     return null
   }
 
-  // Validate user input is number
-  if (typeof passwordLength != number) {
-    return getPasswordOptions(true, 'invType');
+  // Validate user input
+  if (isNaN(passwordLength)) {                          // check user input is number
+    return getPasswordOptions(true, 'invType')
   }
-
-  if (passwordLength < 8 || passwordLength > 128) {
+  if (passwordLength < 8 || passwordLength > 128) {     // check user input is correct length
     return getPasswordOptions(true, 'invLength')
   }
 
-  return Math.floor(passwordLength);
+  // Confirm user choices for character types
+  if (confirm('Include lowercase characters? Press cancel for no')) {
+    availableChars.push(...lowerCasedCharacters)
+  }
+  if (confirm('Include uppercase characters? Press cancel for no')) {
+    availableChars.push(...upperCasedCharacters)
+  }
+  if (confirm('include numbers? Press cancel for no')) {
+    availableChars.push(...numericCharacters)
+  }
+  if (confirm('Include special characters? Press cancel for no')) {
+    availableChars.push(...specialCharacters)
+  }
+
+  // Check at least one character type has been submitted
+  if (!availableChars.length) {
+    return getPasswordOptions(true, 'invChars')
+  }
+
+  // Build options object
+  options.length = Math.floor(passwordLength) // Round down to remove decimals
+  options.chars = availableChars;             // Store options as array
+
+  return options;
 }
 
 // Function for getting a random element from an array
@@ -136,6 +163,15 @@ function generatePassword() {
   // User cancelled input
   if (options === null) return;
 
+  let password = '';
+  let charsLength = options.chars.length;
+
+  // Generate random password using options
+  for (i = 0; i < options.length; i++) {
+    password += options.chars[Math.floor(Math.random() * (charsLength))]
+  }
+
+  return password;
 }
 
 // Get references to the #generate element
