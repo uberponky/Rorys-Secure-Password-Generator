@@ -99,25 +99,28 @@ function getPasswordOptions(retry, issue) {
   if (retry) {
     switch (issue) {
       case 'invType':
-        passwordLength = parseInt(prompt('Value is not a number, please try again. What length should your password be? It must be a number between 8 and 128.'))
+        passwordLength = prompt('Value is not a number, please try again. What length should your password be? It must be a number between 8 and 128.')
         break
       case 'invLength':
-        passwordLength = parseInt(prompt('Value is not within 8 and 128. What length should your password be? It must be a number between 8 and 128.'))
+        passwordLength = prompt('Value is not within 8 and 128. What length should your password be? It must be a number between 8 and 128.')
         break
       case 'invChars':
-        passwordLength = parseInt(prompt('You must select at least one character type. What length should your password be? It must be a number between 8 and 128.'))
+        passwordLength = prompt('You must select at least one character type. What length should your password be? It must be a number between 8 and 128.')
         break
     }
   } else {
-    passwordLength = parseInt(prompt('What length should your password be? It must be a number between 8 and 128.'))
+    passwordLength = prompt('What length should your password be? It must be a number between 8 and 128.')
   }
 
   // User cancelled input, break out of function
   if (passwordLength === null) {
-    return null
+    return
   }
 
-  // Validate user input
+  // Value is not null, convert to number
+  passwordLength = parseInt(passwordLength);
+
+  // Validate user input with recursive call
   if (isNaN(passwordLength)) {                          // check user input is number
     return getPasswordOptions(true, 'invType')
   }
