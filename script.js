@@ -186,7 +186,49 @@ function writePassword() {
   var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
+
+  // Remove disabled attribute from copy to clipboard button
+  document.querySelector('#copy').disabled = false;
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
+
+// ADDITIONAL FUNCTIONALITY FOR COPY TO CLIPBOARD BUTTON
+
+// Get references to the #copy element and password field
+var copyBtn = document.querySelector('#copy');
+
+// Copy password to clipboard
+function copyPassword() {
+  // Grab password field
+  var passwordText = document.querySelector('#password');
+
+  // Copy password to clipboard
+  navigator.clipboard.writeText(passwordText.value);
+
+  // Call function to change button
+  copyBtnClicked();
+}
+
+function copyBtnClicked() {
+  // Get element for button text
+  let copyBtnTxt = document.querySelector('#copy-btn-txt');
+
+  // Store existing value and new values for button
+  let currTxt = copyBtnTxt.innerHTML
+  let newTxt = "Copied ✔"
+
+  // Temporarily change text to copied and add class to fade text out
+  copyBtnTxt.innerHTML = newTxt;
+  copyBtnTxt.classList.add('fade-out');
+
+  // Change text and class back
+  setTimeout(() => {
+    copyBtnTxt.innerHTML = currTxt;
+    copyBtnTxt.classList.remove('fade-out')
+  }, 3000)
+}
+
+// Add event listener to copy button
+copyBtn.addEventListener('click', copyPassword);
