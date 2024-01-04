@@ -88,6 +88,13 @@ header {
   cursor: pointer;
 }
 
+.btn-green {
+  background-color: green;
+  width: 244px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 button[disabled] {
   cursor: default;
   background: #c0c7cf;
@@ -128,10 +135,37 @@ button[disabled] {
   #password {
     font-size: 1rem;
   }
+
+  .btn-green {
+    width: 158px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }
 
 @media (max-width: 500px) {
   .btn {
     font-size: 0.8rem;
+  }
+
+  .btn-green {
+    width: 132px;
+  }
+}
+
+
+/* Custom fade out animation for clipboard button */
+.fade-out {
+  animation-name: fadeOut;
+  animation-delay: 2.4s;
+  animation-duration: .6s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
