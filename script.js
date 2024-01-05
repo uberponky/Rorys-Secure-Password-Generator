@@ -155,23 +155,25 @@ function getPasswordOptions(retry, issue) {
 }
 
 // Function for getting a random element from an array
-function getRandom(arr) {
-
+function getRandom(arr, length) {
+  return arr.chars[Math.floor(Math.random() * (length))]
 }
 
 // Function to generate password with user input
 function generatePassword() {
+  // Declare validation variable
   const options = getPasswordOptions();
 
   // User cancelled input
   if (options === null) return;
 
+  // Declare variables once validation is complete
   let password = '';
   let charsLength = options.chars.length;
 
   // Generate random password using options
   for (i = 0; i < options.length; i++) {
-    password += options.chars[Math.floor(Math.random() * (charsLength))]
+    password += getRandom(options, charsLength)
   }
 
   return password;
