@@ -15,7 +15,7 @@ Features include:
 
 ## Links
 
-[Link to the deployed site](https://uberponky.github.io/Secure-Password-Generator/)
+[Link to the deployed site](https://uberponky.github.io/Rorys-Secure-Password-Generator/)
 
 [Link to the GitHub repository](https://github.com/uberponky/Secure-Password-Generator)
 
