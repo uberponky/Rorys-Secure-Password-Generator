@@ -156,7 +156,7 @@ function getPasswordOptions(retry, issue) {
 
 // Function for getting a random element from an array
 function getRandom(arr, length) {
-  return arr.chars[Math.floor(Math.random() * (length))]
+  return arr[Math.floor(Math.random() * (length))]
 }
 
 // Function to generate password with user input
@@ -173,7 +173,7 @@ function generatePassword() {
 
   // Generate random password using options
   for (i = 0; i < options.length; i++) {
-    password += getRandom(options, charsLength)
+    password += getRandom(options.chars, charsLength)
   }
 
   return password;
